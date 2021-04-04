@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class CustomNavbar extends Component {
   constructor(props) {
@@ -9,13 +10,17 @@ class CustomNavbar extends Component {
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Agromate - Sri Lanka</Navbar.Brand>
+        <Link to="/" className="navbar-brand">
+          Agromate - Sri Lanka
+        </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
             <Nav.Link href="#features">Latest News</Nav.Link>
             <Nav.Link href="#pricing">Annual Reports</Nav.Link>
-            <Nav.Link href="#deets">About</Nav.Link>
+            <Link to="/about" className="nav-link">
+              About
+            </Link>
             <Nav.Link eventKey={2} href="#memes">
               Login
             </Nav.Link>

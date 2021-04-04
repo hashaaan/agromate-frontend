@@ -1,18 +1,18 @@
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
 import "./custom.scss";
-import CustomNavbar from "./components/layout/CustomNavbar";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import Home from "./components/pages/Home";
+import About from "./components/pages/About";
 
 function App() {
   return (
-    <div className="App">
-      <CustomNavbar />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Agriculture Field Support and Guidance System</p>
-        <div className="App-link">Agromate - Sri Lanka</div>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/about" component={About} />
+        <Route path="/" component={Home} />
+      </Switch>
+    </Router>
   );
 }
 
