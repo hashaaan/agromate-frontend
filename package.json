@@ -2,6 +2,13 @@
   "name": "agromate-frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hashaaan/agromate-frontend"
+  },
   "dependencies": {
     "@rematch/core": "^2.0.1",
     "@rematch/loading": "^2.0.1",
