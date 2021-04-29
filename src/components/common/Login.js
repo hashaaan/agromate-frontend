@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Firebase } from "../../lib/firebase";
 
 function Login() {
+  const [user, setUser] = useState(null);
+
+  const authListener = () => {
+    Firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+  };
+
+  const normalSignin = (values) => {
+    Firebase.auth()
+      .signInWithEmailAndPassword(values.email, values.password)
+      .then((user) => {})
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  useEffect(() => {
+    authListener();
+    console.log(user);
+  });
+
   return (
     <section className="ftco-section">
       <div className="container">
-        {/* <div className="row justify-content-center">
+        <div className="row justify-content-center">
           <div className="col-md-6 text-center mb-5">
-            <h2 className="heading-section">Login #01</h2>
+            <h2 className="heading-section">
+              <Link to="/">AGROMATE - SRI LANKA</Link>
+            </h2>
           </div>
-        </div> */}
+        </div>
         <div className="row justify-content-center">
           <div className="col-md-7 col-lg-5">
             <div className="login-wrap p-4 p-md-5">
@@ -21,7 +51,7 @@ function Login() {
                   <input
                     type="text"
                     className="form-control rounded-left"
-                    placeholder="Username"
+                    placeholder="Email address"
                     required=""
                   />
                 </div>

@@ -2,8 +2,9 @@
 // $body-bg: #000;
 
 // Import Bootstrap and its default variables
-@import "~bootstrap/scss/bootstrap";
-
+@import "~antd/dist/antd.css";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "./assets/styles/antd-overwrite.scss";
 @import "./assets/styles/login.scss";
 
 body {
@@ -22,4 +23,12 @@ body {
 .home-carousel .carousel-item .img {
   margin-left: auto;
   margin-right: auto;
+}
+
+svg {
+  vertical-align: unset;
+}
+
+h3 {
+  color: #fff;
 }

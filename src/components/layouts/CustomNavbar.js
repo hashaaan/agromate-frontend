@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 class CustomNavbar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
