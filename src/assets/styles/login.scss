@@ -1,5 +1,10 @@
 .ftco-section {
-  padding: 8em 0;
+  padding: 6em 0;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: none;
 }
 
 .login-wrap {
@@ -21,8 +26,12 @@
   margin-bottom: 10px;
 }
 
+.login-wrap .icon span {
+  color: #fff;
+}
+
 .form-control {
-  height: 52px;
+  height: 42px;
   background: #fff;
   color: #000;
   font-size: 16px;

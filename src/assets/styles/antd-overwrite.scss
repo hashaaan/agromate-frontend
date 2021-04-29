@@ -1,0 +1,117 @@
+#custom-sider.ant-layout.ant-layout-has-sider {
+  min-height: 80vh;
+}
+
+#custom-sider .trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+  float: left;
+}
+
+#custom-sider .trigger.right {
+  float: right;
+}
+
+#custom-sider .trigger:hover {
+  color: #1890ff;
+}
+
+#custom-sider .logo {
+  height: 32px;
+  line-height: 32px;
+  margin: 16px;
+  color: #fff;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.3);
+  text-overflow: ellipsis;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+#custom-sider .ant-menu-vertical > .ant-menu-item,
+#custom-sider .ant-menu-inline > .ant-menu-item {
+  height: 60px;
+  line-height: 60px;
+}
+
+.ant-modal-title {
+  text-align: center;
+  font-weight: bold;
+}
+
+.custom-form .custom-form-btns .ant-form-item-control-input-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 150px;
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #2ecc71;
+}
+
+#messages .ant-list-items {
+  height: 550px;
+  overflow-y: scroll;
+}
+
+#messages .ant-list-split .ant-list-item {
+  padding-left: 10px;
+}
+
+#messages .ant-list-split .ant-list-item:hover {
+  background: #f0f0f0;
+}
+
+#messages .ant-list-split .ant-list-item.active {
+  background: #f0f2f5;
+}
+
+.message-wrap {
+  padding-right: 2%;
+  padding-left: 2%;
+  margin-bottom: 12px;
+  padding-top: 12px;
+}
+
+.message-wrap .message {
+  border-radius: 7.5px;
+  max-width: 65%;
+  //width: auto;
+  position: relative;
+  //flex: none;
+  display: flex;
+  flex-direction: column;
+  font-size: 14.2px;
+  line-height: 19px;
+  color: #000;
+  background-color: #fff;
+  padding: 6px 7px 8px 9px;
+}
+
+.message-wrap .message .sender {
+  font-weight: bold;
+}
+
+.message-wrap.message-in .message {
+  align-items: flex-start;
+  float: left;
+}
+
+.message-wrap.message-out .message {
+  align-items: flex-end;
+  float: right;
+  background-color: #dcf8c6;
+}
+
+.ant-statistic-title {
+  color: #fff;
+}
+
+.dark .ant-statistic-title {
+  color: #000;
+}

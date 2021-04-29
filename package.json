@@ -10,6 +10,8 @@
     "url": "git+https://github.com/hashaaan/agromate-frontend"
   },
   "dependencies": {
+    "@ant-design/charts": "^1.1.2",
+    "@ant-design/icons": "^4.6.2",
     "@rematch/core": "^2.0.1",
     "@rematch/loading": "^2.0.1",
     "@rematch/persist": "^2.0.1",
@@ -17,6 +19,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.3",
+    "antd": "^4.15.2",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "chart.js": "^2.5.0",

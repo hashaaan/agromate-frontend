@@ -1,0 +1,206 @@
+import React from "react";
+import {
+  Layout,
+  Breadcrumb,
+  Table,
+  Tag,
+  Space,
+  Select,
+  Button,
+  Avatar,
+} from "antd";
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  LogoutOutlined,
+  BellOutlined,
+  HomeOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import CustomSidebar from "../layouts/CustomSidebar";
+import farmers from "../../assets/data/farmers";
+
+const { Header, Content } = Layout;
+const { Option } = Select;
+
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+    fixed: "left",
+    width: 200,
+  },
+  {
+    title: "Farmer ID",
+    dataIndex: "id",
+    key: "id",
+    with: 100,
+  },
+  {
+    title: "DOB",
+    key: "dob",
+    dataIndex: "dob",
+    width: 150,
+  },
+  {
+    title: "Farming Crop(s)",
+    dataIndex: "crops",
+    key: "crops",
+    width: 250,
+    render: (crops) => (
+      <>
+        {crops.map((crop, i) => {
+          return (
+            <Tag color={"green"} key={i}>
+              {crop.toUpperCase()}
+            </Tag>
+          );
+        })}
+      </>
+    ),
+  },
+  {
+    title: "Experience",
+    dataIndex: "experince",
+    key: "experince",
+    width: 150,
+    render: (exp) => <span>{exp} years</span>,
+  },
+  {
+    title: "Zip Code",
+    key: "zipcode",
+    dataIndex: "zipcode",
+    width: 100,
+  },
+  {
+    title: "Division",
+    key: "division",
+    dataIndex: "division",
+    width: 200,
+  },
+  {
+    title: "Action",
+    key: "action",
+    fixed: "right",
+    width: 100,
+    render: (id) => (
+      <Space size="middle">
+        <EyeOutlined style={{ color: "blue" }} title="View" />
+        <DeleteOutlined style={{ color: "red" }} title="Chat" />
+      </Space>
+    ),
+  },
+];
+
+class Divisions extends React.Component {
+  state = {
+    collapsed: false,
+    isAddVisible: false,
+  };
+
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
+  };
+
+  showAddModal = () => {
+    this.setState({ isAddVisible: true });
+  };
+
+  handleOk = () => {
+    this.setState({ isAddVisible: false });
+  };
+
+  handleCancel = () => {
+    this.setState({ isAddVisible: false });
+  };
+
+  onDateChange(date, dateString) {
+    console.log(date, dateString);
+  }
+
+  render() {
+    return (
+      <Layout id="custom-sider">
+        <CustomSidebar collapsed={this.state.collapsed} selected={"3"} />
+        <Layout className="site-layout">
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+            {React.createElement(
+              this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: "trigger",
+                onClick: this.toggle,
+              }
+            )}
+            <LogoutOutlined className="trigger right" />
+            <div className="trigger right" style={{ lineHeight: "58px" }}>
+              <Avatar icon={<UserOutlined />} />
+            </div>
+            <BellOutlined className="trigger right" />
+          </Header>
+
+          <Breadcrumb
+            style={{
+              marginTop: "24px",
+              marginLeft: "auto",
+              marginRight: "24px",
+            }}
+          >
+            <Breadcrumb.Item href="/">
+              <HomeOutlined />
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Divisions</Breadcrumb.Item>
+          </Breadcrumb>
+
+          <Content
+            className="site-layout-background"
+            style={{
+              margin: "24px 16px",
+              padding: 24,
+              minHeight: 280,
+            }}
+          >
+            <div style={{ marginBottom: "20px" }}>
+              <Select
+                style={{ width: 200, marginRight: "20px" }}
+                allowClear={true}
+                placeholder="Select Division"
+              >
+                <Option value="1">Urugamuwa - South</Option>
+                <Option value="2">Dandeniya - North</Option>
+              </Select>
+              <Select
+                mode={"multiple"}
+                style={{ width: 200 }}
+                allowClear={true}
+                placeholder="Select Crop(s)"
+              >
+                <Option value="1">Rice</Option>
+                <Option value="2">Corn</Option>
+                <Option value="3">Cinnomon</Option>
+              </Select>
+              <Button
+                type="primary"
+                style={{ float: "right" }}
+                onClick={this.showAddModal}
+              >
+                Clear Filters
+              </Button>
+            </div>
+            <Table
+              columns={columns}
+              dataSource={farmers}
+              scroll={{ x: 1250 }}
+            />
+          </Content>
+        </Layout>
+      </Layout>
+    );
+  }
+}
+
+export default Divisions;

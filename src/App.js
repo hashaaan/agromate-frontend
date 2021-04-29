@@ -13,6 +13,9 @@ import Dashboard from "./components/admin/Dashboard";
 import Register from "./components/common/Register";
 import Login from "./components/common/Login";
 import LatestNews from "./components/common/LatestNews";
+import Farmers from "./components/admin/Farmers";
+import Divisions from "./components/admin/Divisons";
+import Messages from "./components/admin/Messages";
 
 function App() {
   const [isAuth, setAuth] = useState(true);
@@ -24,6 +27,9 @@ function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/about" component={About} />
         <Route path="/latest-news" component={LatestNews} />
+        <Route path="/farmers" component={Farmers} />
+        <Route path="/divisions" component={Divisions} />
+        <Route path="/messages" component={Messages} />
         <Route path="/" component={Home} />
       </Switch>
     </Router>
