@@ -13,6 +13,7 @@
 
 # python
 /api/venv
+/api/__pycache__
 
 # misc
 .env

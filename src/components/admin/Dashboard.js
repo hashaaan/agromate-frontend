@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout, Breadcrumb, Statistic, Row, Col, Card, Avatar } from "antd";
+import axios from "axios";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -34,7 +35,18 @@ class Dashboard extends React.Component {
   state = {
     collapsed: false,
     isAddVisible: false,
+    userCount: 0,
   };
+
+  componentDidMount() {
+    axios.get("/api/v1/users").then((res) => {
+      console.log(res.data);
+      if (res.data) {
+        const userCount = res.data.length;
+        this.setState({ userCount });
+      }
+    });
+  }
 
   toggle = () => {
     this.setState({
@@ -105,7 +117,7 @@ class Dashboard extends React.Component {
                   <Card style={{ background: "#f1c40f" }}>
                     <Statistic
                       title="Active Farmers"
-                      value={1128}
+                      value={this.state.userCount}
                       prefix={<TeamOutlined />}
                       valueStyle={{ color: "#000" }}
                       style={{ color: "#000" }}

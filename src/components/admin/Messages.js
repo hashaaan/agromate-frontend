@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
   Layout,
   Breadcrumb,
@@ -16,8 +17,6 @@ import {
   LogoutOutlined,
   BellOutlined,
   HomeOutlined,
-  DeleteOutlined,
-  EyeOutlined,
   SendOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -72,6 +71,7 @@ const data = [
 class Messages extends React.Component {
   state = {
     activeTab: null,
+    message: null,
   };
 
   onTabClick = (key) => {
@@ -84,6 +84,32 @@ class Messages extends React.Component {
     this.setState({
       collapsed: !this.state.collapsed,
     });
+  };
+
+  onTypeMessage = (e) => {
+    const message = e.target.value;
+    this.setState({ message });
+  };
+
+  onSend = () => {
+    const { message } = this.state;
+    console.log(message);
+    const data = {
+      message,
+      user_id: 1,
+      admin_id: 4,
+      sender: "admin",
+    };
+    axios
+      .post("/api/v1/conversations", data)
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -139,7 +165,7 @@ class Messages extends React.Component {
                       const atab = this.state.activeTab;
                       return (
                         <List.Item
-                          className={index == atab ? "active" : ""}
+                          className={index === atab ? "active" : ""}
                           onClick={() => this.onTabClick(index)}
                         >
                           <List.Item.Meta
@@ -190,7 +216,10 @@ class Messages extends React.Component {
                   </div>
                   <Row gutter="24">
                     <Col span={20} style={{ paddingRight: 0 }}>
-                      <Input placeholder="Type a message" />
+                      <Input
+                        placeholder="Type a message"
+                        onChange={this.onTypeMessage}
+                      />
                     </Col>
                     <Col span={4}>
                       <Button
@@ -198,6 +227,8 @@ class Messages extends React.Component {
                         type="primary"
                         block
                         loading={false}
+                        onClick={this.onSend}
+                        disabled={this.state.activeTab ? false : true}
                       >
                         Send
                       </Button>
