@@ -43,6 +43,51 @@ class User(Resource):
         cur.close()
         return rs
 
+# Login
+login_args = reqparse.RequestParser()
+login_args.add_argument("email", type=str, help="Email is reqired!", required=True)
+login_args.add_argument("password", type=str, help="Password is reqired!", required=True)
+login_args.add_argument("type", type=str, help="Type is reqired!", required=True)
+
+class Login(Resource):
+    def post(self):
+        args = login_args.parse_args()
+        cur = mysql.connection.cursor()
+        u_type = args.type
+        email = args.email
+        passw_in = args.password
+        stmt = "SELECT * FROM users WHERE email='%s';"
+        if u_type == "admin":
+            stmt = "SELECT * FROM admins WHERE email='%s';"
+        cur.execute(stmt % email)
+        rs = cur.fetchone()
+        cur.close()
+        if rs:
+            password = rs['password']
+            success = False
+            jsonStr = json.dumps(rs, indent=1, sort_keys=True, default=str)
+            user = json.loads(jsonStr)
+            if passw_in == password:
+                success = True
+                return { "success": success, "user": user }
+            else:
+                return { "success": success, "message": "Invalid email address or password!" }, 400
+        return {"success": False, "message": "Invalid email address or password!"}, 400
+
+# Register
+reg_args = reqparse.RequestParser()
+reg_args.add_argument("email", type=str, help="Email is reqired!", required=True)
+reg_args.add_argument("password", type=str, help="Password is reqired!", required=True)
+reg_args.add_argument("mobile", type=str, help="Mobile number is reqired!", required=True)
+
+class Register(Resource):
+    def post(self):
+        args = reg_args.parse_args()
+        cur = mysql.connection.cursor()
+        cur.close()
+        return args
+
+# Conversations
 conv_post_args = reqparse.RequestParser()
 conv_post_args.add_argument("message", type=str, help="Message is reqired!", required=True)
 conv_post_args.add_argument("admin_id", type=int, help="Admin is reqired!", required=True)
@@ -78,8 +123,8 @@ class Conversations(Resource):
         cur.execute(stmt)
         rs = cur.fetchall()
         if len(rs) > 0:
-            jsonObj = json.dumps(rs, indent=1, sort_keys=True, default=str)
-            return json.loads(jsonObj)
+            jsonStr = json.dumps(rs, indent=1, sort_keys=True, default=str)
+            return json.loads(jsonStr)
         return { "success": False, "message": "No conversations available!" }, 400
 
     def post(self):
@@ -140,13 +185,16 @@ class Messages(Resource):
             return json.loads(jsonStr)
         return { "success": False, "message": "No messages available!" }, 400
 
-# Define api routes
+# Define API routes
 api.add_resource(Users, "/api/v1/users/")
 api.add_resource(User, "/api/v1/users/<int:user_id>")
 api.add_resource(Conversations, "/api/v1/conversations")
 api.add_resource(AdminConvo, "/api/v1/conversations/admin/<int:admin_id>")
-# api.add_resource(AdminConvo, "/api/v1/conversations/user/<int:user_id>")
+# api.add_resource(UserConvo, "/api/v1/conversations/user/<int:user_id>")
 api.add_resource(Messages, "/api/v1/messages/<int:c_id>")
+# Auth routes
+api.add_resource(Login, "/api/v1/auth/login")
+api.add_resource(Register, "/api/v1/auth/register")
 
 # Define index route
 @app.route('/')

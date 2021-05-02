@@ -19,7 +19,7 @@ import {
   EyeOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import CustomSidebar from "../layouts/CustomSidebar";
+import CustomSidebar from "./layouts/CustomSidebar";
 import farmers from "../../assets/data/farmers";
 
 const { Header, Content } = Layout;

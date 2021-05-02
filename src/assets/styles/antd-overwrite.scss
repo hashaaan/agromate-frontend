@@ -118,3 +118,12 @@
 .dark .ant-statistic-title {
   color: #000;
 }
+
+.ant-switch-checked {
+  background-color: #2ecc71;
+}
+
+.ant-switch-checked:focus,
+.ant-switch-checked:hover {
+  background-color: #27ae60;
+}
