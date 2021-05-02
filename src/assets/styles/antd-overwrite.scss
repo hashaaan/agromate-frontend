@@ -76,14 +76,15 @@
   padding-left: 2%;
   margin-bottom: 12px;
   padding-top: 12px;
+  // max-width: 65%;
 }
 
 .message-wrap .message {
   border-radius: 7.5px;
-  max-width: 65%;
-  //width: auto;
+  // max-width: 65%;
+  // width: auto;
   position: relative;
-  //flex: none;
+  flex: none;
   display: flex;
   flex-direction: column;
   font-size: 14.2px;
@@ -99,12 +100,14 @@
 
 .message-wrap.message-in .message {
   align-items: flex-start;
-  float: left;
+  margin-right: 70%;
+  // float: left;
 }
 
 .message-wrap.message-out .message {
   align-items: flex-end;
-  float: right;
+  margin-left: 70%;
+  // float: right;
   background-color: #dcf8c6;
 }
 
