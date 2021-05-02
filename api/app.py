@@ -1,3 +1,5 @@
+import json
+######################################
 from flask import Flask, request, jsonify
 from yaml import load, dump
 from datetime import datetime
@@ -13,8 +15,9 @@ except ImportError:
 app = Flask(__name__)
 # allow cross origin requests
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-# Configure db
+# Load yaml config file
 db = load(open('db.yaml'), Loader=Loader)
+# Configure db
 app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
 app.config['MYSQL_PASSWORD'] = db['mysql_password']
@@ -70,7 +73,14 @@ def createMessage(data):
 
 class Conversations(Resource):
     def get(self):
-        return {"message": "Hey! quagmier"}
+        cur = mysql.connection.cursor()
+        stmt = "SELECT * FROM conversation"
+        cur.execute(stmt)
+        rs = cur.fetchall()
+        if len(rs) > 0:
+            jsonObj = json.dumps(rs, indent=1, sort_keys=True, default=str)
+            return json.loads(jsonObj)
+        return { "success": False, "message": "No conversations available!" }, 400
 
     def post(self):
         args = conv_post_args.parse_args()
@@ -98,10 +108,45 @@ class Conversations(Resource):
         
         return { "success": True, "data": args }, 201
 
+class AdminConvo(Resource):
+    def get(self, admin_id):
+        cur = mysql.connection.cursor()
+        stmt = "SELECT \
+          conversation.c_id, \
+          conversation.admin_id, \
+          conversation.user_id, \
+          conversation.created_at, \
+          conversation.status, \
+          users.name AS user_name \
+          FROM conversation \
+          INNER JOIN users ON users.u_id = conversation.user_id WHERE conversation.admin_id=%d;"
+        cur.execute(stmt % admin_id)
+        rs = cur.fetchall()
+        cur.close()
+        if len(rs) > 0:
+            jsonStr = json.dumps(rs, indent=1, sort_keys=True, default=str)
+            return json.loads(jsonStr)
+        return { "success": False, "message": "No conversations available!" }, 400
+
+class Messages(Resource):
+    def get(self, c_id):
+        cur = mysql.connection.cursor()
+        stmt = "SELECT * from conversation_reply WHERE c_id=%d;"
+        cur.execute(stmt % c_id)
+        rs = cur.fetchall()
+        cur.close()
+        if len(rs) > 0:
+            jsonStr = json.dumps(rs, indent=1, sort_keys=True, default=str)
+            return json.loads(jsonStr)
+        return { "success": False, "message": "No messages available!" }, 400
+
 # Define api routes
 api.add_resource(Users, "/api/v1/users/")
 api.add_resource(User, "/api/v1/users/<int:user_id>")
 api.add_resource(Conversations, "/api/v1/conversations")
+api.add_resource(AdminConvo, "/api/v1/conversations/admin/<int:admin_id>")
+# api.add_resource(AdminConvo, "/api/v1/conversations/user/<int:user_id>")
+api.add_resource(Messages, "/api/v1/messages/<int:c_id>")
 
 # Define index route
 @app.route('/')

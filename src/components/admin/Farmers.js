@@ -1,28 +1,11 @@
 import React from "react";
-import {
-  Layout,
-  Breadcrumb,
-  Table,
-  Tag,
-  Space,
-  Select,
-  Button,
-  Avatar,
-} from "antd";
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  LogoutOutlined,
-  BellOutlined,
-  HomeOutlined,
-  EyeOutlined,
-  MessageOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import CustomSidebar from "../layouts/CustomSidebar";
+import { Layout, Breadcrumb, Table, Tag, Space, Select, Button } from "antd";
+import { HomeOutlined, EyeOutlined, MessageOutlined } from "@ant-design/icons";
+import CustomSidebar from "./layouts/CustomSidebar";
+import CustomHeader from "./layouts/CustomHeader";
 import farmers from "../../assets/data/farmers";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 const { Option } = Select;
 
 const columns = [
@@ -93,7 +76,7 @@ const columns = [
     fixed: "right",
     width: 100,
     render: (id) => (
-      <Space size="middle">
+      <Space size="middle" key={id}>
         <EyeOutlined style={{ color: "blue" }} title="View" />
         <MessageOutlined style={{ color: "green" }} title="Message" />
       </Space>
@@ -130,24 +113,12 @@ class Farmers extends React.Component {
   }
 
   render() {
+    const { collapsed } = this.state;
     return (
       <Layout id="custom-sider">
-        <CustomSidebar collapsed={this.state.collapsed} selected={"2"} />
+        <CustomSidebar collapsed={collapsed} selected={"2"} />
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            {React.createElement(
-              this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: "trigger",
-                onClick: this.toggle,
-              }
-            )}
-            <LogoutOutlined className="trigger right" />
-            <div className="trigger right" style={{ lineHeight: "58px" }}>
-              <Avatar icon={<UserOutlined />} />
-            </div>
-            <BellOutlined className="trigger right" />
-          </Header>
+          <CustomHeader collapsed={collapsed} onToggle={this.toggle} />
 
           <Breadcrumb
             style={{

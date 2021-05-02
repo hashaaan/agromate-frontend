@@ -22,7 +22,7 @@ const farmers = [
     gender: "Male",
   },
   {
-    key: "2",
+    key: "3",
     name: "V. P. S. Wijayakumara",
     id: "F004",
     dob: "1962/05/24",
@@ -33,7 +33,7 @@ const farmers = [
     gender: "Male",
   },
   {
-    key: "3",
+    key: "4",
     name: "R. W. Pemarathne",
     id: "F005",
     dob: "1960/02/01",
@@ -44,7 +44,7 @@ const farmers = [
     gender: "Male",
   },
   {
-    key: "4",
+    key: "5",
     name: "D. K. Manoj",
     id: "F006",
     dob: "1960/02/01",
@@ -55,7 +55,7 @@ const farmers = [
     gender: "Male",
   },
   {
-    key: "5",
+    key: "6",
     name: "G. P. Sudarshani",
     id: "F007",
     dob: "1960/02/01",
@@ -66,7 +66,7 @@ const farmers = [
     gender: "Female",
   },
   {
-    key: "6",
+    key: "7",
     name: "V. P. Piyarathne",
     id: "F008",
     dob: "1960/02/01",
@@ -77,7 +77,7 @@ const farmers = [
     gender: "Male",
   },
   {
-    key: "7",
+    key: "8",
     name: "B. K. Bandula",
     id: "F009",
     dob: "1960/02/01",

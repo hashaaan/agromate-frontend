@@ -1,83 +1,61 @@
 import React from "react";
 import axios from "axios";
-import {
-  Layout,
-  Breadcrumb,
-  Row,
-  Col,
-  List,
-  Avatar,
-  Empty,
-  Input,
-  Button,
-} from "antd";
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  LogoutOutlined,
-  BellOutlined,
-  HomeOutlined,
-  SendOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import CustomSidebar from "../layouts/CustomSidebar";
-import { Link } from "react-router-dom";
+import moment from "moment";
+import { Layout, Breadcrumb, Empty, Input, Button } from "antd";
+import { HomeOutlined, SendOutlined } from "@ant-design/icons";
+import CustomSidebar from "./layouts/CustomSidebar";
+import CustomHeader from "./layouts/CustomHeader";
+// import { Link } from "react-router-dom";
 
-const { Header, Content } = Layout;
-
-const data = [
-  {
-    title: "A. U. Sirisena",
-    imgUrl: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    lastMsg: "Instructor, I have few questions to ask",
-  },
-  {
-    title: "V. P. Vijayakumara",
-    imgUrl: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    lastMsg: "Hello Instructor",
-  },
-  {
-    title: "G. S. Priyankara",
-    imgUrl: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    lastMsg: "Priyankara you should do followings",
-  },
-  {
-    title: "A. L. Pathirana",
-    imgUrl: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    lastMsg: "Instructor, I have few questions to ask",
-  },
-  {
-    title: "G. P. Sudarshani",
-    imgUrl: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    lastMsg: "Instructor, I have few questions to ask",
-  },
-  {
-    title: "R.W. Premarathne",
-    imgUrl: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    lastMsg: "Instructor are you available for call?",
-  },
-  {
-    title: "W. S. Athula",
-    imgUrl: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    lastMsg: "What fertilizers should I use..",
-  },
-  {
-    title: "W. A. Bandula",
-    imgUrl: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    lastMsg: "Hi! I have few requests",
-  },
-];
+const { Content } = Layout;
 
 class Messages extends React.Component {
   state = {
     activeTab: null,
+    activeUser: null,
     message: null,
+    conversations: [],
+    messages: [],
   };
 
-  onTabClick = (key) => {
+  async componentDidMount() {
+    axios
+      .get("/api/v1/conversations/admin/1")
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data);
+          this.setState({ conversations: res.data });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  fetchMessages = async (c_id) => {
+    axios
+      .get(`/api/v1/messages/${c_id}`)
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data);
+          this.setState({ messages: res.data });
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data);
+          this.setState({ messages: [] });
+        }
+      });
+  };
+
+  onTabClick = (conv) => {
     this.setState({
-      activeTab: key,
+      activeTab: conv.c_id,
+      activeUser: conv.user_id,
     });
+
+    this.fetchMessages(conv.c_id);
   };
 
   toggle = () => {
@@ -92,19 +70,20 @@ class Messages extends React.Component {
   };
 
   onSend = () => {
-    const { message } = this.state;
-    console.log(message);
+    const { message, activeTab, activeUser } = this.state;
     const data = {
       message,
-      user_id: 1,
-      admin_id: 4,
+      user_id: activeUser,
+      admin_id: 1,
       sender: "admin",
     };
     axios
       .post("/api/v1/conversations", data)
       .then((res) => {
+        this.setState({ message: null });
         if (res.data) {
           console.log(res.data);
+          this.fetchMessages(activeTab);
         }
       })
       .catch((err) => {
@@ -112,25 +91,82 @@ class Messages extends React.Component {
       });
   };
 
+  renderMessage = (msg, i) => {
+    const time = moment(msg.created_at).format("hh:mm A | MMMM D");
+    if (msg.sender === "user") {
+      return (
+        <div className="incoming_msg" key={i}>
+          <div className="incoming_msg_img">
+            <img
+              src="https://ptetutorials.com/images/user-profile.png"
+              alt="hash"
+            />
+          </div>
+          <div className="received_msg">
+            <div className="received_withd_msg">
+              <p>{msg.message}</p>
+              <span className="time_date">{time}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="outgoing_msg" key={i}>
+        <div className="sent_msg">
+          <p>{msg.message}</p>
+          <span className="time_date">{time}</span>{" "}
+        </div>
+      </div>
+    );
+  };
+
+  renderChatList = (conv, i) => {
+    const { activeTab } = this.state;
+
+    let active = false;
+    const c_id = conv.c_id;
+    const date = moment(conv.created_at).format("MMM D");
+    if (c_id === activeTab) active = true;
+
+    return (
+      <div
+        className={active ? "chat_list active_chat" : "chat_list"}
+        key={i}
+        onClick={() => this.onTabClick(conv)}
+      >
+        <div className="chat_people">
+          <div className="chat_img">
+            <img
+              src="https://ptetutorials.com/images/user-profile.png"
+              alt="hash"
+            />
+          </div>
+          <div className="chat_ib">
+            <h5>
+              {conv.user_name} <span className="chat_date">{date}</span>
+            </h5>
+            <p>Farmer</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   render() {
+    const {
+      conversations,
+      activeTab,
+      collapsed,
+      messages,
+      message,
+    } = this.state;
+
     return (
       <Layout id="custom-sider">
-        <CustomSidebar collapsed={this.state.collapsed} selected={"6"} />
+        <CustomSidebar collapsed={collapsed} selected={"6"} />
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            {React.createElement(
-              this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: "trigger",
-                onClick: this.toggle,
-              }
-            )}
-            <LogoutOutlined className="trigger right" />
-            <div className="trigger right" style={{ lineHeight: "58px" }}>
-              <Avatar icon={<UserOutlined />} />
-            </div>
-            <BellOutlined className="trigger right" />
-          </Header>
+          <CustomHeader collapsed={collapsed} onToggle={this.toggle} />
 
           <Breadcrumb
             style={{
@@ -149,93 +185,84 @@ class Messages extends React.Component {
             className="site-layout-background"
             style={{
               margin: "24px 16px",
-              padding: 24,
               minHeight: 280,
             }}
             id="messages"
           >
-            <div style={{ margin: "20px 40px" }}>
-              <Row gutter="24">
-                <Col span="8">
-                  <List
-                    itemLayout="horizontal"
-                    dataSource={data}
-                    renderItem={(item, i) => {
-                      const index = i + 1;
-                      const atab = this.state.activeTab;
-                      return (
-                        <List.Item
-                          className={index === atab ? "active" : ""}
-                          onClick={() => this.onTabClick(index)}
-                        >
-                          <List.Item.Meta
-                            avatar={
-                              <Avatar
-                                icon={<UserOutlined />}
-                                size="large"
-                                style={{ backgroundColor: "#87d068" }}
-                              />
-                            }
-                            title={<Link to="/messages">{item.title}</Link>}
-                            description={item.lastMsg}
+            <div className="container">
+              <h3 className=" text-center">Messaging</h3>
+              <div className="messaging">
+                <div className="inbox_msg">
+                  <div className="inbox_people">
+                    <div className="headind_srch">
+                      <div className="recent_heading">
+                        <h4>Recent</h4>
+                      </div>
+                      <div className="srch_bar">
+                        <div className="stylish-input-group">
+                          <input
+                            type="text"
+                            className="search-bar"
+                            placeholder="Search"
                           />
-                        </List.Item>
-                      );
-                    }}
-                  />
-                </Col>
-                <Col span="16">
-                  <div
-                    style={{
-                      height: "500px",
-                      background: "#f0f2f5",
-                      marginBottom: 10,
-                    }}
-                  >
-                    {!this.state.activeTab && (
-                      <Empty
-                        description="Start messaging"
-                        style={{ lineHeight: "500px" }}
-                      />
-                    )}
-                    {this.state.activeTab && (
-                      <>
-                        <div className="message-wrap message-in">
-                          <div className="message">
-                            <div className="sender">A. U. Sirisena</div>
-                            Instructor, I have few questions to ask
-                          </div>
+                          <span className="input-group-addon">
+                            <button type="button">
+                              {" "}
+                              <i
+                                className="fa fa-search"
+                                aria-hidden="true"
+                              ></i>{" "}
+                            </button>
+                          </span>{" "}
                         </div>
-                        <div className="message-wrap message-out">
-                          <div className="message">
-                            Ok. Tell me what can I do for you ?
-                          </div>
-                        </div>
-                      </>
-                    )}
+                      </div>
+                    </div>
+                    <div className="inbox_chat">
+                      {conversations.map((conv, i) =>
+                        this.renderChatList(conv, i)
+                      )}
+                    </div>
                   </div>
-                  <Row gutter="24">
-                    <Col span={20} style={{ paddingRight: 0 }}>
-                      <Input
-                        placeholder="Type a message"
-                        onChange={this.onTypeMessage}
-                      />
-                    </Col>
-                    <Col span={4}>
-                      <Button
-                        icon={<SendOutlined />}
-                        type="primary"
-                        block
-                        loading={false}
-                        onClick={this.onSend}
-                        disabled={this.state.activeTab ? false : true}
-                      >
-                        Send
-                      </Button>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+                  <div className="mesgs">
+                    <div className="msg_history">
+                      {!activeTab && (
+                        <Empty
+                          description="Start messaging"
+                          style={{ lineHeight: "400px" }}
+                        />
+                      )}
+                      {activeTab &&
+                        (messages.length > 0 ? (
+                          messages.map((msg, i) => this.renderMessage(msg, i))
+                        ) : (
+                          <Empty
+                            description="No messages available"
+                            style={{ lineHeight: "400px" }}
+                          />
+                        ))}
+                    </div>
+                    <div className="type_msg">
+                      <div className="input_msg_write">
+                        <Input
+                          className="write_msg"
+                          placeholder="Type a message"
+                          value={message}
+                          onChange={this.onTypeMessage}
+                        />
+                        <Button
+                          icon={<SendOutlined />}
+                          shape="circle"
+                          className="msg_send_btn"
+                          type="primary"
+                          loading={false}
+                          onClick={this.onSend}
+                          disabled={activeTab ? false : true}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Content>
         </Layout>
