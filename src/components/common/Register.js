@@ -87,7 +87,7 @@ function Register() {
                 <div className="form-group">
                   <input
                     type="text"
-                    name="username"
+                    name="firstname"
                     className="form-control rounded-left"
                     placeholder="First name"
                     required=""
@@ -96,6 +96,7 @@ function Register() {
                 <div className="form-group">
                   <input
                     type="text"
+                    name="lastname"
                     className="form-control rounded-left"
                     placeholder="Last name"
                     required=""
@@ -104,6 +105,7 @@ function Register() {
                 <div className="form-group">
                   <input
                     type="text"
+                    name="email"
                     className="form-control rounded-left"
                     placeholder="Email address"
                     required=""

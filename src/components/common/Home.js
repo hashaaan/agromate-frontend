@@ -1,6 +1,6 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import CustomNavbar from "../layouts/CustomNavbar";
+import CustomNavbar from "./layouts/CustomNavbar";
 import cr_01 from "../../assets/img/cr_03.jpg";
 import cr_02 from "../../assets/img/cr_04.jpg";
 import cr_03 from "../../assets/img/cr_02.jpg";

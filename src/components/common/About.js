@@ -1,5 +1,5 @@
 import React from "react";
-import CustomNavbar from "../layouts/CustomNavbar";
+import CustomNavbar from "./layouts/CustomNavbar";
 //import output from "./Brain";
 
 function About() {

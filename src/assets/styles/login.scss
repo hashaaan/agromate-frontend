@@ -101,3 +101,10 @@ a:hover {
 .checkbox-primary input:checked ~ .checkmark:after {
   color: #1089ff;
 }
+
+.error-msg {
+  color: red;
+  font-size: small;
+  margin-bottom: 10px;
+  text-align: center;
+}
