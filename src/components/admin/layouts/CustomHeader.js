@@ -14,6 +14,8 @@ const { Header } = Layout;
 const CustomHeader = ({ collapsed, onToggle, ...props }) => {
   const handleLogout = () => {
     const { history } = props;
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("user_type");
     history.push("/");
   };
 

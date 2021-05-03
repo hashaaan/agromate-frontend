@@ -76,6 +76,7 @@ class Login(Resource):
 
 # Register
 reg_args = reqparse.RequestParser()
+reg_args.add_argument("name", type=str, help="Name is reqired!", required=True)
 reg_args.add_argument("email", type=str, help="Email is reqired!", required=True)
 reg_args.add_argument("password", type=str, help="Password is reqired!", required=True)
 reg_args.add_argument("mobile", type=str, help="Mobile number is reqired!", required=True)
@@ -84,8 +85,24 @@ class Register(Resource):
     def post(self):
         args = reg_args.parse_args()
         cur = mysql.connection.cursor()
+        name = args.name
+        email = args.email
+        password = args.password
+        # check if user aleready exists
+        stmt = "SELECT * FROM users WHERE email='%s';"
+        cur.execute(stmt % email)
+        rs = cur.fetchone()
+        if rs:
+            return { "success": False, "message": "User already exists!" }, 400
+        # if not create user
+        stmt = "INSERT INTO users(name, email, password) VALUES(%s, %s, %s);"
+        data = (name, email, password)
+        rs = cur.execute(stmt, data)
+        mysql.connection.commit()
         cur.close()
-        return args
+        if rs > 0:
+            return { "success": True, "data": args }
+        return { "success": False, "message": "User not registered!" }, 400
 
 # Conversations
 conv_post_args = reqparse.RequestParser()

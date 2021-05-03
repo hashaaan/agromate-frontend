@@ -17,9 +17,9 @@ class CustomNavbar extends Component {
             <Link to="/register" className="nav-link">
               NEW USER
             </Link>
-            <Nav.Link eventKey={2} href="/login">
+            <Link to="/login" className="nav-link">
               LOGIN
-            </Nav.Link>
+            </Link>
             <Nav.Link href="/about">ABOUT</Nav.Link>
           </Nav>
         </Navbar.Collapse>

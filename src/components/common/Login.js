@@ -4,7 +4,7 @@ import axios from "axios";
 import { Switch } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 
-function Login() {
+const Login = ({ ...props }) => {
   const [user, setUser] = useState(null);
   const [isAdmin, setUserType] = useState(false);
   const [error, setError] = useState(null);
@@ -15,16 +15,14 @@ function Login() {
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    // Validations
+    // Data validations
     if (!email) {
       const emailErr = "Email address is missing!";
       setError(emailErr);
-      console.error(emailErr);
       return false;
     }
     if (!password) {
       const passErr = "Password is missing!";
-      console.error(passErr);
       setError(passErr);
       return false;
     }
@@ -40,6 +38,7 @@ function Login() {
     axios
       .post("/api/v1/auth/login", data)
       .then((res) => {
+        const { history } = props;
         if (res.data) {
           console.log(res.data);
           if (res.data.success) {
@@ -57,6 +56,11 @@ function Login() {
             console.log(user_id, user_type);
             localStorage.setItem("user_id", user_id);
             localStorage.setItem("user_type", user_type);
+            if (isAdmin) {
+              history.push("/admin/dashboard");
+            } else {
+              history.push("/user/dashboard");
+            }
           }
         }
       })
@@ -72,7 +76,7 @@ function Login() {
   };
 
   useEffect(() => {
-    //console.log(user);
+    console.log("user", user);
   });
 
   return (
@@ -150,6 +154,6 @@ function Login() {
       </div>
     </section>
   );
-}
+};
 
 export default withRouter(Login);

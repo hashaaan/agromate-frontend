@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import "./custom.scss";
 import {
@@ -18,25 +18,17 @@ import Divisions from "./components/admin/Divisons";
 import Messages from "./components/admin/Messages";
 
 function App() {
-  const [isAuthAdmin, setAuthAdmin] = useState(false);
-  const [isAuthUser, setAuthUser] = useState(false);
-
-  const checkAuth = () => {
+  const checkAuth = (component, type) => {
     const user_id = localStorage.getItem("user_id");
     const user_type = localStorage.getItem("user_type");
     console.log(user_id, user_type);
     if (user_id && user_type) {
-      if (user_type === "admin") {
-        setAuthAdmin(true);
-      } else {
-        setAuthUser(true);
+      if (user_type === type) {
+        return component;
       }
     }
+    return <Redirect to="/" />;
   };
-
-  useEffect(() => {
-    checkAuth();
-  });
 
   return (
     <Router>
@@ -45,27 +37,19 @@ function App() {
         <Route path="/login" component={Login} />
         <Route
           path="/admin/dashboard"
-          render={(props) =>
-            isAuthAdmin ? <Dashboard {...props} /> : <Redirect to="/" />
-          }
+          render={(props) => checkAuth(<Dashboard {...props} />, "admin")}
         />
         <Route
           path="/admin/farmers"
-          render={(props) =>
-            isAuthAdmin ? <Farmers {...props} /> : <Redirect to="/" />
-          }
+          render={(props) => checkAuth(<Farmers {...props} />, "admin")}
         />
         <Route
           path="/admin/divisions"
-          render={(props) =>
-            isAuthAdmin ? <Divisions {...props} /> : <Redirect to="/" />
-          }
+          render={(props) => checkAuth(<Divisions {...props} />, "admin")}
         />
         <Route
           path="/admin/messages"
-          render={(props) =>
-            isAuthAdmin ? <Messages {...props} /> : <Redirect to="/" />
-          }
+          render={(props) => checkAuth(<Messages {...props} />, "admin")}
         />
         <Route path="/about" component={About} />
         <Route path="/latest-news" component={LatestNews} />

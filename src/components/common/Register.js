@@ -1,68 +1,81 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Firebase } from "../../lib/firebase";
+import { Link, withRouter } from "react-router-dom";
+import axios from "axios";
+import { LeftOutlined } from "@ant-design/icons";
 
-function Register() {
-  const [user, setUser] = useState(null);
+const Register = ({ ...props }) => {
+  //const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  const authListener = () => {
-    Firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
-  };
+  const authListener = () => {};
 
   const normalSignup = (e) => {
     e.preventDefault();
-    const firstname = e.target[0].value;
-    const lastname = e.target[1].value;
-    const email = e.target[2].value;
-    const mobile = e.target[3].value;
-    const password = e.target[4].value;
-    // Validations
-    if (!firstname) {
-      console.error("First name is missing!");
-      return false;
-    }
-    if (!lastname) {
-      console.error("Last name is missing!");
+    const name = e.target[0].value;
+    const email = e.target[1].value;
+    const mobile = e.target[2].value;
+    const password = e.target[3].value;
+    // Data validations
+    if (!name) {
+      const nameErr = "Name is missing!";
+      setError(nameErr);
       return false;
     }
     if (!email) {
-      console.error("Email address is missing!");
+      const emailErr = "Email address is missing!";
+      setError(emailErr);
       return false;
     }
     if (!mobile) {
-      console.error("Monile number is missing!");
+      const mobErr = "Mobile number is missing!";
+      setError(mobErr);
       return false;
     }
     if (!password) {
-      console.error("Password is missing!");
+      const passErr = "Password is missing!";
+      setError(passErr);
       return false;
     }
     if (password.length < 6) {
-      console.error("Password should be at least 6 characters!");
+      const passErr = "Password should be at least 6 characters!";
+      setError(passErr);
       return false;
     }
-    console.log(e.target[0].value);
 
-    Firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        console.log("user", user);
+    setError(null);
+
+    const data = {
+      name,
+      email,
+      password,
+      mobile,
+    };
+
+    // console.log(data);
+
+    axios
+      .post("/api/v1/auth/register", data)
+      .then((res) => {
+        const { history } = props;
+        if (res.data) {
+          console.log(res.data);
+          if (res.data.success) {
+            history.push("/login");
+          }
+        }
       })
-      .catch((error) => {
-        console.log("error", error);
+      .catch((err) => {
+        if (err.response) {
+          const { message } = err.response.data;
+          setError(message);
+          // console.log(err.response);
+        }
       });
   };
 
   useEffect(() => {
     authListener();
-    console.log(user);
+    //console.log(user);
   });
 
   return (
@@ -70,15 +83,17 @@ function Register() {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6 text-center mb-5">
-            <h2 className="heading-section">
-              <Link to="/">AGROMATE - SRI LANKA</Link>
-            </h2>
+            <h4 className="heading-section">
+              <Link to="/">
+                <LeftOutlined /> AGROMATE - HOME
+              </Link>
+            </h4>
           </div>
         </div>
         <div className="row justify-content-center">
           <div className="col-md-7 col-lg-5">
             <div className="login-wrap p-4 p-md-5">
-              <h3 className="text-center mb-4">Create an account</h3>
+              <h3 className="text-center mb-4 color-dark">Create an account</h3>
               <form
                 action="#"
                 className="login-form"
@@ -87,25 +102,14 @@ function Register() {
                 <div className="form-group">
                   <input
                     type="text"
-                    name="firstname"
                     className="form-control rounded-left"
-                    placeholder="First name"
+                    placeholder="Your name"
                     required=""
                   />
                 </div>
                 <div className="form-group">
                   <input
                     type="text"
-                    name="lastname"
-                    className="form-control rounded-left"
-                    placeholder="Last name"
-                    required=""
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="email"
                     className="form-control rounded-left"
                     placeholder="Email address"
                     required=""
@@ -127,6 +131,7 @@ function Register() {
                     required=""
                   />
                 </div>
+                <div className="error-msg">{error && error}</div>
                 <div className="form-group">
                   <button
                     type="submit"
@@ -142,6 +147,6 @@ function Register() {
       </div>
     </section>
   );
-}
+};
 
-export default Register;
+export default withRouter(Register);
