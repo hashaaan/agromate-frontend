@@ -9,13 +9,17 @@ import {
 } from "react-router-dom";
 import Home from "./components/common/Home";
 import About from "./components/common/About";
-import Dashboard from "./components/admin/Dashboard";
 import Register from "./components/common/Register";
 import Login from "./components/common/Login";
 import LatestNews from "./components/common/LatestNews";
+// Admin authenticated components
+import Dashboard from "./components/admin/Dashboard";
 import Farmers from "./components/admin/Farmers";
 import Divisions from "./components/admin/Divisons";
 import Messages from "./components/admin/Messages";
+// User authenticated components
+import UDashboard from "./components/user/UDashboard";
+import UMessages from "./components/user/UMessages";
 
 function App() {
   const checkAuth = (component, type) => {
@@ -50,6 +54,14 @@ function App() {
         <Route
           path="/admin/messages"
           render={(props) => checkAuth(<Messages {...props} />, "admin")}
+        />
+        <Route
+          path="/user/dashboard"
+          render={(props) => checkAuth(<UDashboard {...props} />, "user")}
+        />
+        <Route
+          path="/user/messages"
+          render={(props) => checkAuth(<UMessages {...props} />, "user")}
         />
         <Route path="/about" component={About} />
         <Route path="/latest-news" component={LatestNews} />

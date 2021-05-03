@@ -9,35 +9,43 @@ import {
   SnippetsOutlined,
   TeamOutlined,
   AreaChartOutlined,
+  UserOutlined,
+  FileDoneOutlined,
 } from "@ant-design/icons";
 
 const { Sider } = Layout;
 
 const CustomSidebar = ({ collapsed, selected }) => {
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Sider trigger={null} collapsible collapsed={collapsed} id="user-sider">
       <div className="logo">{collapsed ? "AG" : "AGROMATE - SL"}</div>
       <Menu theme="dark" mode="inline" selectedKeys={selected}>
         <Menu.Item key="1" icon={<DashboardOutlined />}>
-          <Link to="/admin/dashboard">Dashboard</Link>
+          <Link to="/user/dashboard">Dashboard</Link>
+        </Menu.Item>
+        <Menu.Item key="8" icon={<UserOutlined />}>
+          <Link to="/user/profile">Profile</Link>
+        </Menu.Item>
+        <Menu.Item key="9" icon={<FileDoneOutlined />}>
+          <Link to="/user/survey">Surveys</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<TeamOutlined />}>
-          <Link to="/admin/farmers">Farmers</Link>
+          <Link to="/user/officers">Officers</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<IdcardOutlined />}>
-          <Link to="/admin/divisions">Divisions</Link>
+          <Link to="/user/divisions">Divisions</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<AreaChartOutlined />}>
-          <Link to="/admin/production">Production</Link>
+          <Link to="/user/production">Production</Link>
         </Menu.Item>
         <Menu.Item key="5" icon={<SnippetsOutlined />}>
-          <Link to="/admin/requests">Requests</Link>
+          <Link to="/user/requests">Requests</Link>
         </Menu.Item>
         <Menu.Item key="6" icon={<MessageOutlined />}>
-          <Link to="/admin/messages">Messages</Link>
+          <Link to="/user/messages">Messages</Link>
         </Menu.Item>
         <Menu.Item key="7" icon={<PrinterOutlined />}>
-          <Link to="/admin/reports">Reports</Link>
+          <Link to="/user/reports">Reports</Link>
         </Menu.Item>
       </Menu>
     </Sider>

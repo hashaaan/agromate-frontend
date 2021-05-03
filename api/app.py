@@ -190,6 +190,27 @@ class AdminConvo(Resource):
             return json.loads(jsonStr)
         return { "success": False, "message": "No conversations available!" }, 400
 
+class UserConvo(Resource):
+    def get(self, user_id):
+        cur = mysql.connection.cursor()
+        stmt = "SELECT \
+          conversation.c_id, \
+          conversation.admin_id, \
+          conversation.user_id, \
+          conversation.created_at, \
+          conversation.status, \
+          admins.name AS admin_name, \
+          admins.role AS admin_role \
+          FROM conversation \
+          INNER JOIN admins ON admins.a_id = conversation.admin_id WHERE conversation.user_id=%d;"
+        cur.execute(stmt % user_id)
+        rs = cur.fetchall()
+        cur.close()
+        if len(rs) > 0:
+            jsonStr = json.dumps(rs, indent=1, sort_keys=True, default=str)
+            return json.loads(jsonStr)
+        return { "success": False, "message": "No conversations available!" }, 400
+
 class Messages(Resource):
     def get(self, c_id):
         cur = mysql.connection.cursor()
@@ -207,7 +228,7 @@ api.add_resource(Users, "/api/v1/users/")
 api.add_resource(User, "/api/v1/users/<int:user_id>")
 api.add_resource(Conversations, "/api/v1/conversations")
 api.add_resource(AdminConvo, "/api/v1/conversations/admin/<int:admin_id>")
-# api.add_resource(UserConvo, "/api/v1/conversations/user/<int:user_id>")
+api.add_resource(UserConvo, "/api/v1/conversations/user/<int:user_id>")
 api.add_resource(Messages, "/api/v1/messages/<int:c_id>")
 # Auth routes
 api.add_resource(Login, "/api/v1/auth/login")

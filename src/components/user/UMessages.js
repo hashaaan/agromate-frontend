@@ -9,20 +9,20 @@ import CustomHeader from "./layouts/CustomHeader";
 
 const { Content } = Layout;
 
-class Messages extends React.Component {
+class UMessages extends React.Component {
   state = {
     activeTab: null,
-    activeUser: null,
+    activeAdmin: null,
     message: null,
     conversations: [],
     messages: [],
   };
 
   async componentDidMount() {
-    const admin_id = localStorage.getItem("user_id");
-    if (admin_id) {
+    const user_id = localStorage.getItem("user_id");
+    if (user_id) {
       axios
-        .get(`/api/v1/conversations/admin/${admin_id}`)
+        .get(`/api/v1/conversations/user/${user_id}`)
         .then((res) => {
           if (res.data) {
             console.log(res.data);
@@ -55,7 +55,7 @@ class Messages extends React.Component {
   onTabClick = (conv) => {
     this.setState({
       activeTab: conv.c_id,
-      activeUser: conv.user_id,
+      activeAdmin: conv.admin_id,
     });
 
     this.fetchMessages(conv.c_id);
@@ -73,13 +73,13 @@ class Messages extends React.Component {
   };
 
   onSend = () => {
-    const { message, activeTab, activeUser } = this.state;
-    const admin_id = localStorage.getItem("user_id");
+    const { message, activeTab, activeAdmin } = this.state;
+    const user_id = localStorage.getItem("user_id");
     const data = {
       message,
-      user_id: activeUser,
-      admin_id,
-      sender: "admin",
+      user_id,
+      admin_id: activeAdmin,
+      sender: "user",
     };
     axios
       .post("/api/v1/conversations", data)
@@ -97,7 +97,7 @@ class Messages extends React.Component {
 
   renderMessage = (msg, i) => {
     const time = moment(msg.created_at).format("hh:mm A | MMMM D");
-    if (msg.sender === "user") {
+    if (msg.sender === "admin") {
       return (
         <div className="incoming_msg" key={i}>
           <div className="incoming_msg_img">
@@ -148,9 +148,9 @@ class Messages extends React.Component {
           </div>
           <div className="chat_ib">
             <h5>
-              {conv.user_name} <span className="chat_date">{date}</span>
+              {conv.admin_name} <span className="chat_date">{date}</span>
             </h5>
-            <p>{conv.admin_role}</p>
+            <p>ARPA</p>
           </div>
         </div>
       </div>
@@ -191,7 +191,7 @@ class Messages extends React.Component {
               margin: "24px 16px",
               minHeight: 280,
             }}
-            id="messages"
+            id="umsg"
           >
             <div className="container">
               <h3 className=" text-center">Messaging</h3>
@@ -275,4 +275,4 @@ class Messages extends React.Component {
   }
 }
 
-export default Messages;
+export default UMessages;

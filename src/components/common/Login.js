@@ -45,17 +45,20 @@ const Login = ({ ...props }) => {
             const { user } = res.data;
             let user_id = null;
             let user_type = null;
-            setUser(user);
-            if (isAdmin) {
-              user_id = user.a_id;
-              user_type = "admin";
-            } else {
-              user_id = user.u_id;
-              user_type = "user";
+            if (user) {
+              setUser(user);
+              if (isAdmin) {
+                user_id = user.a_id;
+                user_type = "admin";
+              } else {
+                user_id = user.u_id;
+                user_type = "user";
+              }
+              console.log(`${user_id} ${user.name} ${user_type}`);
+              localStorage.setItem("user_id", user_id);
+              localStorage.setItem("user_type", user_type);
+              localStorage.setItem("user_name", user.name);
             }
-            console.log(user_id, user_type);
-            localStorage.setItem("user_id", user_id);
-            localStorage.setItem("user_type", user_type);
             if (isAdmin) {
               history.push("/admin/dashboard");
             } else {

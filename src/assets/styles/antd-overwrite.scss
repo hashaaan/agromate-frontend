@@ -50,65 +50,16 @@
   padding: 0px 150px;
 }
 
-.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+#user-sider .ant-menu-item-selected {
   background-color: #2ecc71;
 }
 
-#messages .ant-list-items {
-  height: 550px;
-  overflow-y: scroll;
+#user-header .ant-avatar.ant-avatar-icon {
+  background-color: #27ae60;
 }
 
-#messages .ant-list-split .ant-list-item {
-  padding-left: 10px;
-}
-
-#messages .ant-list-split .ant-list-item:hover {
-  background: #f0f0f0;
-}
-
-#messages .ant-list-split .ant-list-item.active {
-  background: #f0f2f5;
-}
-
-.message-wrap {
-  padding-right: 2%;
-  padding-left: 2%;
-  margin-bottom: 12px;
-  padding-top: 12px;
-  // max-width: 65%;
-}
-
-.message-wrap .message {
-  border-radius: 7.5px;
-  // max-width: 65%;
-  // width: auto;
-  position: relative;
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  font-size: 14.2px;
-  line-height: 19px;
-  color: #000;
-  background-color: #fff;
-  padding: 6px 7px 8px 9px;
-}
-
-.message-wrap .message .sender {
-  font-weight: bold;
-}
-
-.message-wrap.message-in .message {
-  align-items: flex-start;
-  margin-right: 70%;
-  // float: left;
-}
-
-.message-wrap.message-out .message {
-  align-items: flex-end;
-  margin-left: 70%;
-  // float: right;
-  background-color: #dcf8c6;
+#admin-header .ant-avatar.ant-avatar-icon {
+  background-color: #05728f;
 }
 
 .ant-statistic-title {
