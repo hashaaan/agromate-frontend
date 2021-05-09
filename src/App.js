@@ -20,6 +20,7 @@ import Messages from "./components/admin/Messages";
 // User authenticated components
 import UDashboard from "./components/user/UDashboard";
 import UMessages from "./components/user/UMessages";
+import UProfile from "./components/user/UProfile";
 
 function App() {
   const checkAuth = (component, type) => {
@@ -58,6 +59,10 @@ function App() {
         <Route
           path="/user/dashboard"
           render={(props) => checkAuth(<UDashboard {...props} />, "user")}
+        />
+        <Route
+          path="/user/profile"
+          render={(props) => checkAuth(<UProfile {...props} />, "user")}
         />
         <Route
           path="/user/messages"

@@ -168,7 +168,7 @@ class UMessages extends React.Component {
 
     return (
       <Layout id="custom-sider">
-        <CustomSidebar collapsed={collapsed} selected={"6"} />
+        <CustomSidebar collapsed={collapsed} selected={"8"} />
         <Layout className="site-layout">
           <CustomHeader collapsed={collapsed} onToggle={this.toggle} />
 
