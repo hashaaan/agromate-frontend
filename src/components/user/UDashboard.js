@@ -35,13 +35,21 @@ class UDashboard extends React.Component {
   };
 
   componentDidMount() {
-    axios.get("/api/v1/users").then((res) => {
-      console.log(res.data);
-      if (res.data) {
-        const userCount = res.data.length;
-        this.setState({ userCount });
-      }
-    });
+    const token = localStorage.getItem("token");
+    axios
+      .get("/api/v1/users", { headers: { token: token } })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          const userCount = res.data.length;
+          this.setState({ userCount });
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.error(err.response.data);
+        }
+      });
   }
 
   toggle = () => {
@@ -92,7 +100,7 @@ class UDashboard extends React.Component {
             style={{
               margin: "24px 16px",
               padding: 24,
-              minHeight: 280,
+              minHeight: "90vh",
             }}
           >
             <div style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }}>

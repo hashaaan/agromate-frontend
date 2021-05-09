@@ -42,7 +42,7 @@ const Login = ({ ...props }) => {
         if (res.data) {
           console.log(res.data);
           if (res.data.success) {
-            const { user } = res.data;
+            const { user, token } = res.data;
             let user_id = null;
             let user_type = null;
             if (user) {
@@ -58,6 +58,9 @@ const Login = ({ ...props }) => {
               localStorage.setItem("user_id", user_id);
               localStorage.setItem("user_type", user_type);
               localStorage.setItem("user_name", user.name);
+              if (token) {
+                localStorage.setItem("token", token);
+              }
             }
             if (isAdmin) {
               history.push("/admin/dashboard");

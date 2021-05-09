@@ -35,7 +35,8 @@ class Dashboard extends React.Component {
   };
 
   componentDidMount() {
-    axios.get("/api/v1/users").then((res) => {
+    const token = localStorage.getItem("token");
+    axios.get("/api/v1/users", { headers: { token: token } }).then((res) => {
       console.log(res.data);
       if (res.data) {
         const userCount = res.data.length;

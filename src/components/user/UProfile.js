@@ -1,14 +1,11 @@
 import React from "react";
-import { Layout, Breadcrumb, Statistic, Row, Col, Card } from "antd";
+import { Layout, Breadcrumb, Avatar } from "antd";
 import axios from "axios";
 import {
   HomeOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  UserSwitchOutlined,
-  TeamOutlined,
+  UserOutlined,
+  CheckCircleFilled,
 } from "@ant-design/icons";
-import { Line } from "@ant-design/charts";
 import CustomSidebar from "./layouts/CustomSidebar";
 import CustomHeader from "./layouts/CustomHeader";
 import production from "../../assets/data/production";
@@ -19,17 +16,25 @@ class UProfile extends React.Component {
   state = {
     collapsed: false,
     isAddVisible: false,
-    userCount: 0,
+    authUser: null,
   };
 
   componentDidMount() {
-    axios.get("/api/v1/users").then((res) => {
-      console.log(res.data);
-      if (res.data) {
-        const userCount = res.data.length;
-        this.setState({ userCount });
-      }
-    });
+    const token = localStorage.getItem("token");
+    axios
+      .get("/api/v1/auth/user", { headers: { token: token } })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          const authUser = res.data;
+          this.setState({ authUser });
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.error(err.response.data);
+        }
+      });
   }
 
   toggle = () => {
@@ -55,7 +60,7 @@ class UProfile extends React.Component {
   }
 
   render() {
-    const { collapsed } = this.state;
+    const { collapsed, authUser } = this.state;
     return (
       <Layout id="custom-sider">
         <CustomSidebar collapsed={collapsed} selected={"2"} />
@@ -80,11 +85,68 @@ class UProfile extends React.Component {
             style={{
               margin: "24px 16px",
               padding: 24,
-              minHeight: 620,
+              minHeight: "80vh",
+              //background: "green",
             }}
           >
             <div style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }}>
-              Profile
+              <h4 className="text-center">Profile Details</h4>
+              <div class="card profile">
+                <div class="row">
+                  <div class="col-sm-6 picture">
+                    <center>
+                      <Avatar
+                        icon={<UserOutlined />}
+                        title={"Hashan"}
+                        size={150}
+                        shape="square"
+                      />
+                    </center>
+                  </div>
+                  <div class="col-sm-6 details">
+                    <center>
+                      <p class="name">
+                        <b>{authUser && authUser.name}</b>{" "}
+                        <CheckCircleFilled
+                          style={{ color: "#05728f" }}
+                          title="Verified"
+                        />
+                      </p>
+                    </center>
+                    <center>
+                      <p>Domestic Farmer</p>
+                    </center>
+                    <center>
+                      <p>Email: {authUser && authUser.email}</p>
+                    </center>
+                  </div>
+                </div>
+                <table class="table">
+                  <tr>
+                    <td>
+                      <p>
+                        <b>Age</b>
+                      </p>
+                      <p>29</p>
+                    </td>
+                    <td>
+                      <p>
+                        <b>Experience</b>
+                      </p>
+                      <p>10</p>
+                    </td>
+                    <td>
+                      <p>
+                        <b>Crops</b>
+                      </p>
+                      <p>30</p>
+                    </td>
+                  </tr>
+                </table>
+                <center>
+                  <a class="waves-effect waves-light btn edit">Edit Profile</a>
+                </center>
+              </div>
             </div>
           </Content>
         </Layout>

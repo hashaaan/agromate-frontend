@@ -168,7 +168,7 @@ class UMessages extends React.Component {
 
     return (
       <Layout id="custom-sider">
-        <CustomSidebar collapsed={collapsed} selected={"8"} />
+        <CustomSidebar collapsed={collapsed} selected={"3"} />
         <Layout className="site-layout">
           <CustomHeader collapsed={collapsed} onToggle={this.toggle} />
 
@@ -189,7 +189,7 @@ class UMessages extends React.Component {
             className="site-layout-background"
             style={{
               margin: "24px 16px",
-              minHeight: 280,
+              minHeight: "90vh",
             }}
             id="umsg"
           >

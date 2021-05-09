@@ -21,6 +21,8 @@ import Messages from "./components/admin/Messages";
 import UDashboard from "./components/user/UDashboard";
 import UMessages from "./components/user/UMessages";
 import UProfile from "./components/user/UProfile";
+import USurvey from "./components/user/USurvey";
+import URequests from "./components/user/URequests";
 
 function App() {
   const checkAuth = (component, type) => {
@@ -67,6 +69,14 @@ function App() {
         <Route
           path="/user/messages"
           render={(props) => checkAuth(<UMessages {...props} />, "user")}
+        />
+        <Route
+          path="/user/survey"
+          render={(props) => checkAuth(<USurvey {...props} />, "user")}
+        />
+        <Route
+          path="/user/requests"
+          render={(props) => checkAuth(<URequests {...props} />, "user")}
         />
         <Route path="/about" component={About} />
         <Route path="/latest-news" component={LatestNews} />

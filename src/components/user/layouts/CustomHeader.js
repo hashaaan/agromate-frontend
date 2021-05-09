@@ -17,6 +17,7 @@ const CustomHeader = ({ collapsed, onToggle, ...props }) => {
     localStorage.removeItem("user_id");
     localStorage.removeItem("user_type");
     localStorage.removeItem("user_name");
+    localStorage.removeItem("token");
     history.push("/");
   };
 
