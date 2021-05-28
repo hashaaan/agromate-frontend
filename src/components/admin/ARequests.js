@@ -1,16 +1,16 @@
 import React from "react";
 import { Layout, Breadcrumb, Table, Tag, Space, Select, Button } from "antd";
-import { HomeOutlined, EyeOutlined, MessageOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 import CustomSidebar from "./layouts/CustomSidebar";
 import CustomHeader from "./layouts/CustomHeader";
-import farmers from "../../assets/data/farmers";
+import requests from "../../assets/data/requests";
 
 const { Content } = Layout;
 const { Option } = Select;
 
 const columns = [
   {
-    title: "Name",
+    title: "Requester Name",
     dataIndex: "name",
     key: "name",
     fixed: "left",
@@ -23,68 +23,55 @@ const columns = [
     with: 100,
   },
   {
-    title: "DOB",
-    key: "dob",
-    dataIndex: "dob",
+    title: "Requested Date",
+    key: "date",
+    dataIndex: "date",
     width: 150,
   },
   {
-    title: "Gender",
-    key: "gender",
-    dataIndex: "gender",
-    width: 100,
-  },
-  {
-    title: "Farming Crop(s)",
-    dataIndex: "crops",
-    key: "crops",
-    width: 250,
-    render: (crops) => (
-      <>
-        {crops.map((crop, i) => {
-          return (
-            <Tag color={"green"} key={i}>
-              {crop}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: "Experience",
-    dataIndex: "experince",
-    key: "experince",
+    title: "Owned Land Area",
+    dataIndex: "landarea",
+    key: "landarea",
     width: 150,
-    render: (exp) => <span>{exp} years</span>,
+    render: (land) => <span>{land} Sq ft</span>,
   },
   {
-    title: "ZIP Code",
-    key: "zipcode",
-    dataIndex: "zipcode",
-    width: 100,
-  },
-  {
-    title: "Division",
-    key: "division",
-    dataIndex: "division",
+    title: "Crop Category",
+    dataIndex: "crop_cat",
+    key: "crop_cat",
     width: 200,
+  },
+  {
+    title: "Crop Name",
+    key: "crop_name",
+    dataIndex: "crop_name",
+    width: 200,
+  },
+  {
+    title: "Quantity",
+    key: "quantity",
+    dataIndex: "quantity",
+    width: 100,
   },
   {
     title: "Action",
     key: "action",
     fixed: "right",
-    width: 100,
+    width: 200,
     render: (id) => (
       <Space size="middle" key={id}>
-        <EyeOutlined style={{ color: "blue" }} title="View" />
-        <MessageOutlined style={{ color: "green" }} title="Message" />
+        <Button type="primary" size="small" className="btn-approve">
+          Approve
+        </Button>
+        <Button type="primary" size="small" className="btn-reject">
+          Reject
+        </Button>
       </Space>
     ),
   },
 ];
 
-class Farmers extends React.Component {
+class ARequests extends React.Component {
   state = {
     collapsed: false,
     isAddVisible: false,
@@ -116,7 +103,7 @@ class Farmers extends React.Component {
     const { collapsed } = this.state;
     return (
       <Layout id="custom-sider">
-        <CustomSidebar collapsed={collapsed} selected={"2"} />
+        <CustomSidebar collapsed={collapsed} selected={"5"} />
         <Layout className="site-layout">
           <CustomHeader collapsed={collapsed} onToggle={this.toggle} />
 
@@ -130,7 +117,7 @@ class Farmers extends React.Component {
             <Breadcrumb.Item href="/">
               <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item>Farmers</Breadcrumb.Item>
+            <Breadcrumb.Item>Requests</Breadcrumb.Item>
           </Breadcrumb>
 
           <Content
@@ -138,11 +125,11 @@ class Farmers extends React.Component {
             style={{
               margin: "24px 16px",
               padding: 24,
-              minHeight: 280,
+              minHeight: "80vh",
             }}
           >
             <div style={{ marginBottom: "20px" }}>
-              <Select
+              {/* <Select
                 style={{ width: 200, marginRight: "20px" }}
                 allowClear={true}
                 placeholder="Select Division"
@@ -159,19 +146,20 @@ class Farmers extends React.Component {
                 <Option value="1">Rice</Option>
                 <Option value="2">Corn</Option>
                 <Option value="3">Cinnomon</Option>
-              </Select>
-              <Button
+              </Select> */}
+              {/* <Button
                 type="primary"
                 style={{ float: "right" }}
                 onClick={this.showAddModal}
               >
                 Add Farmer
-              </Button>
+              </Button> */}
+              <h5>Crop Requests by Farmers</h5>
             </div>
             <Table
               columns={columns}
-              dataSource={farmers}
-              scroll={{ x: 1350 }}
+              dataSource={requests}
+              scroll={{ x: 1300 }}
             />
           </Content>
         </Layout>
@@ -180,4 +168,4 @@ class Farmers extends React.Component {
   }
 }
 
-export default Farmers;
+export default ARequests;

@@ -8,6 +8,7 @@
 @import "./assets/styles/login.scss";
 @import "./assets/styles/chat.scss";
 @import "./assets/styles/profile.scss";
+@import "./assets/styles/survey.scss";
 
 body {
   font-family: "Lato", Arial, sans-serif;
@@ -50,5 +51,38 @@ h3 {
 
 #home {
   //background: #27ae60;
-  background: #fff;
+  background: #eef0f1;
+}
+
+.mini-text {
+  font-size: 12px;
+}
+
+.home-carousel .carousel-item {
+  background: black;
+}
+
+.home-carousel .carousel-item img {
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.btn-approve {
+  background: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.btn-approve:hover {
+  background: #27ae60;
+  border-color: #27ae60;
+}
+
+.btn-reject {
+  background: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.btn-reject:hover {
+  background: #c0392b;
+  border-color: #c0392b;
 }

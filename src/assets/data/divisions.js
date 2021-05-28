@@ -1,0 +1,58 @@
+const divisions = [
+  {
+    key: "1",
+    name: "Akuressa",
+    code: "204",
+    tel: "041-2283166",
+    address: "59,Matara Road, Akuressa",
+    district: "Matara",
+    province: "Southern",
+  },
+  {
+    key: "2",
+    name: "Deiyandara",
+    code: "203",
+    tel: "041-2268228",
+    address: "Hakmana Road, Deiyandara",
+    district: "Matara",
+    province: "Southern",
+  },
+  {
+    key: "3",
+    name: "Deniyaya",
+    code: "226",
+    tel: "041-2273378",
+    address: "Main Street, Deniyaya",
+    district: "Matara",
+    province: "Southern",
+  },
+  {
+    key: "4",
+    name: "Devinuwara",
+    code: "254",
+    tel: "041-2283166",
+    address: "59, Light House Street, Devinuwara",
+    district: "Matara",
+    province: "Southern",
+  },
+  {
+    key: "5",
+    name: "Dikwella",
+    code: "247",
+    tel: "041-2257597",
+    address: "82, Mahawela Road, Dikwella",
+    district: "Matara",
+    province: "Southern",
+  },
+  {
+    key: "6",
+    name: "Gandara",
+    code: "206",
+    tel: "041-2259585",
+    address: "Main Street, Gandara",
+    district: "Matara",
+    province: "Southern",
+  },
+];
+
+export default divisions;

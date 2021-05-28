@@ -1,13 +1,7 @@
 import React from "react";
-import { Layout, Breadcrumb, Statistic, Row, Col, Card } from "antd";
+import { Layout, Breadcrumb, Rate, List, Avatar, Button } from "antd";
 import axios from "axios";
-import {
-  HomeOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  UserSwitchOutlined,
-  TeamOutlined,
-} from "@ant-design/icons";
+import { HomeOutlined, TagOutlined } from "@ant-design/icons";
 import CustomSidebar from "./layouts/CustomSidebar";
 import CustomHeader from "./layouts/CustomHeader";
 
@@ -17,17 +11,13 @@ class USurvey extends React.Component {
   state = {
     collapsed: false,
     isAddVisible: false,
-    userCount: 0,
+    loadingSubmit: false,
+    ratings: [],
+    submitted: false,
   };
 
   componentDidMount() {
-    axios.get("/api/v1/users").then((res) => {
-      console.log(res.data);
-      if (res.data) {
-        const userCount = res.data.length;
-        this.setState({ userCount });
-      }
-    });
+    //
   }
 
   toggle = () => {
@@ -48,12 +38,38 @@ class USurvey extends React.Component {
     this.setState({ isAddVisible: false });
   };
 
-  onDateChange(date, dateString) {
-    console.log(date, dateString);
-  }
+  handleRate = (rating, id) => {
+    //console.log(r, id);
+    const { ratings } = this.state;
+    let rateObj = { id, rating };
+    let arr = [rateObj, ...ratings];
+    let filtered = arr.filter(
+      (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+    );
+    this.setState({ ratings: filtered });
+  };
+
+  handleSubmit = () => {
+    this.setState({ loadingSubmit: true });
+    setTimeout(
+      () => this.setState({ loadingSubmit: false, submitted: true }),
+      1000
+    );
+  };
 
   render() {
-    const { collapsed } = this.state;
+    const { collapsed, ratings, loadingSubmit, submitted } = this.state;
+
+    console.log(ratings);
+
+    const crops = [
+      { id: 100, name: "Brinjal", type: "Vegetable" },
+      { id: 101, name: "Okra", type: "Vegetable" },
+      { id: 130, name: "Lemon", type: "Fruit" },
+      { id: 102, name: "Beet root", type: "Vegetable" },
+      { id: 103, name: "Green cabbage", type: "Vegetale" },
+    ];
+
     return (
       <Layout id="custom-sider">
         <CustomSidebar collapsed={collapsed} selected={"5"} />
@@ -83,6 +99,54 @@ class USurvey extends React.Component {
           >
             <div style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }}>
               <h4 className="text-center">Farmer Weekly Survey</h4>
+              <div className="card survey">
+                {!submitted ? (
+                  <div>
+                    <h5 className="mb-3">
+                      01. Please provide your ratings for the crops below
+                    </h5>
+                    <List
+                      size="large"
+                      dataSource={crops}
+                      renderItem={(crop) => (
+                        <List.Item>
+                          <List.Item.Meta
+                            avatar={
+                              <Avatar
+                                icon={<TagOutlined />}
+                                style={{ background: "#27ae60" }}
+                              />
+                            }
+                            title={crop.name}
+                            description={crop.type}
+                          />
+                          <div>
+                            <Rate
+                              onChange={(r) => this.handleRate(r, crop.id)}
+                              allowClear={false}
+                            />
+                          </div>
+                        </List.Item>
+                      )}
+                    />
+                    <div className="submit-button">
+                      <Button
+                        block
+                        type="primary"
+                        disabled={ratings.length < 5 || loadingSubmit}
+                        onClick={() => this.handleSubmit()}
+                        loading={loadingSubmit}
+                      >
+                        Submit
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <h5 style={{ textAlign: "center" }} className="mt-3 mb-3">
+                    Thank you for your time!
+                  </h5>
+                )}
+              </div>
             </div>
           </Content>
         </Layout>

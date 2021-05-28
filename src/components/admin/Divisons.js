@@ -20,78 +20,48 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import CustomSidebar from "./layouts/CustomSidebar";
-import farmers from "../../assets/data/farmers";
+import divisions from "../../assets/data/divisions";
 
 const { Header, Content } = Layout;
 const { Option } = Select;
 
 const columns = [
   {
+    title: "Code",
+    dataIndex: "code",
+    key: "code",
+    with: 50,
+  },
+  {
     title: "Name",
     dataIndex: "name",
     key: "name",
     fixed: "left",
-    width: 200,
-  },
-  {
-    title: "Farmer ID",
-    dataIndex: "id",
-    key: "id",
-    with: 100,
-  },
-  {
-    title: "DOB",
-    key: "dob",
-    dataIndex: "dob",
-    width: 150,
-  },
-  {
-    title: "Farming Crop(s)",
-    dataIndex: "crops",
-    key: "crops",
     width: 250,
-    render: (crops) => (
-      <>
-        {crops.map((crop, i) => {
-          return (
-            <Tag color={"green"} key={i}>
-              {crop.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
   },
   {
-    title: "Experience",
-    dataIndex: "experince",
-    key: "experince",
-    width: 150,
-    render: (exp) => <span>{exp} years</span>,
-  },
-  {
-    title: "Zip Code",
-    key: "zipcode",
-    dataIndex: "zipcode",
-    width: 100,
-  },
-  {
-    title: "Division",
-    key: "division",
-    dataIndex: "division",
+    title: "Telephone",
+    key: "tel",
+    dataIndex: "tel",
     width: 200,
   },
   {
-    title: "Action",
-    key: "action",
-    fixed: "right",
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+    width: 350,
+  },
+  {
+    title: "District",
+    dataIndex: "district",
+    key: "district",
+    width: 150,
+  },
+  {
+    title: "Province",
+    key: "province",
+    dataIndex: "province",
     width: 100,
-    render: (id) => (
-      <Space size="middle">
-        <EyeOutlined style={{ color: "blue" }} title="View" />
-        <DeleteOutlined style={{ color: "red" }} title="Chat" />
-      </Space>
-    ),
   },
 ];
 
@@ -153,7 +123,7 @@ class Divisions extends React.Component {
             <Breadcrumb.Item href="/">
               <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item>Divisions</Breadcrumb.Item>
+            <Breadcrumb.Item>Branches</Breadcrumb.Item>
           </Breadcrumb>
 
           <Content
@@ -161,40 +131,40 @@ class Divisions extends React.Component {
             style={{
               margin: "24px 16px",
               padding: 24,
-              minHeight: 280,
+              minHeight: "80vh",
             }}
           >
             <div style={{ marginBottom: "20px" }}>
               <Select
                 style={{ width: 200, marginRight: "20px" }}
-                allowClear={true}
-                placeholder="Select Division"
+                allowClear
+                placeholder="Select Province"
               >
-                <Option value="1">Urugamuwa - South</Option>
-                <Option value="2">Dandeniya - North</Option>
+                <Option value="1">Southern</Option>
+                <Option value="2">Western</Option>
+                <Option value="3">North Central</Option>
               </Select>
               <Select
-                mode={"multiple"}
                 style={{ width: 200 }}
-                allowClear={true}
-                placeholder="Select Crop(s)"
+                allowClear
+                placeholder="Select District"
               >
-                <Option value="1">Rice</Option>
-                <Option value="2">Corn</Option>
-                <Option value="3">Cinnomon</Option>
+                <Option value="1">Matara</Option>
+                <Option value="2">Galle</Option>
+                <Option value="3">Hambantota</Option>
               </Select>
-              <Button
+              {/* <Button
                 type="primary"
                 style={{ float: "right" }}
-                onClick={this.showAddModal}
+                onClick={() => {}}
               >
-                Clear Filters
-              </Button>
+                Add Division
+              </Button> */}
             </div>
             <Table
               columns={columns}
-              dataSource={farmers}
-              scroll={{ x: 1250 }}
+              dataSource={divisions}
+              scroll={{ x: 1100 }}
             />
           </Content>
         </Layout>

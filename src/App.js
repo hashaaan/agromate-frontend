@@ -23,6 +23,9 @@ import UMessages from "./components/user/UMessages";
 import UProfile from "./components/user/UProfile";
 import USurvey from "./components/user/USurvey";
 import URequests from "./components/user/URequests";
+import Recommendations from "./components/user/Recommendations";
+import ARequests from "./components/admin/ARequests";
+import Reports from "./components/admin/Reports";
 
 function App() {
   const checkAuth = (component, type) => {
@@ -51,12 +54,20 @@ function App() {
           render={(props) => checkAuth(<Farmers {...props} />, "admin")}
         />
         <Route
-          path="/admin/divisions"
+          path="/admin/branches"
           render={(props) => checkAuth(<Divisions {...props} />, "admin")}
         />
         <Route
           path="/admin/messages"
           render={(props) => checkAuth(<Messages {...props} />, "admin")}
+        />
+        <Route
+          path="/admin/requests"
+          render={(props) => checkAuth(<ARequests {...props} />, "admin")}
+        />
+        <Route
+          path="/admin/reports"
+          render={(props) => checkAuth(<Reports {...props} />, "admin")}
         />
         <Route
           path="/user/dashboard"
@@ -77,6 +88,10 @@ function App() {
         <Route
           path="/user/requests"
           render={(props) => checkAuth(<URequests {...props} />, "user")}
+        />
+        <Route
+          path="/user/recommendations"
+          render={(props) => checkAuth(<Recommendations {...props} />, "user")}
         />
         <Route path="/about" component={About} />
         <Route path="/latest-news" component={LatestNews} />

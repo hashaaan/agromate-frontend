@@ -91,9 +91,9 @@ class UProfile extends React.Component {
           >
             <div style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }}>
               <h4 className="text-center">Profile Details</h4>
-              <div class="card profile">
-                <div class="row">
-                  <div class="col-sm-6 picture">
+              <div className="card profile">
+                <div className="row">
+                  <div className="col-sm-6 picture">
                     <center>
                       <Avatar
                         icon={<UserOutlined />}
@@ -103,9 +103,9 @@ class UProfile extends React.Component {
                       />
                     </center>
                   </div>
-                  <div class="col-sm-6 details">
+                  <div className="col-sm-6 details">
                     <center>
-                      <p class="name">
+                      <p className="name">
                         <b>{authUser && authUser.name}</b>{" "}
                         <CheckCircleFilled
                           style={{ color: "#05728f" }}
@@ -121,30 +121,34 @@ class UProfile extends React.Component {
                     </center>
                   </div>
                 </div>
-                <table class="table">
-                  <tr>
-                    <td>
-                      <p>
-                        <b>Age</b>
-                      </p>
-                      <p>29</p>
-                    </td>
-                    <td>
-                      <p>
-                        <b>Experience</b>
-                      </p>
-                      <p>10</p>
-                    </td>
-                    <td>
-                      <p>
-                        <b>Crops</b>
-                      </p>
-                      <p>30</p>
-                    </td>
-                  </tr>
+                <table className="table">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>
+                          <b>Age</b>
+                        </p>
+                        <p>29</p>
+                      </td>
+                      <td>
+                        <p>
+                          <b>Experience</b>
+                        </p>
+                        <p>10</p>
+                      </td>
+                      <td>
+                        <p>
+                          <b>Crops</b>
+                        </p>
+                        <p>30</p>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
                 <center>
-                  <a class="waves-effect waves-light btn edit">Edit Profile</a>
+                  <a className="waves-effect waves-light btn edit">
+                    Edit Profile
+                  </a>
                 </center>
               </div>
             </div>

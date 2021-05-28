@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import {
   DashboardOutlined,
-  IdcardOutlined,
+  //IdcardOutlined,
   MessageOutlined,
+  SecurityScanOutlined,
   //PrinterOutlined,
   SnippetsOutlined,
   TeamOutlined,
@@ -18,7 +19,7 @@ const { Sider } = Layout;
 const CustomSidebar = ({ collapsed, selected }) => {
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} id="user-sider">
-      <div className="logo">{collapsed ? "AG" : "AGROMATE - SL"}</div>
+      <div className="logo">{collapsed ? "AG" : "AGROMATE"}</div>
       <Menu theme="dark" mode="inline" selectedKeys={selected}>
         <Menu.Item key="1" icon={<DashboardOutlined />}>
           <Link to="/user/dashboard">Dashboard</Link>
@@ -35,12 +36,15 @@ const CustomSidebar = ({ collapsed, selected }) => {
         <Menu.Item key="5" icon={<FileDoneOutlined />}>
           <Link to="/user/survey">Surveys</Link>
         </Menu.Item>
-        <Menu.Item key="6" icon={<TeamOutlined />}>
+        <Menu.Item key="6" icon={<SecurityScanOutlined />}>
+          <Link to="/user/recommendations">Recommendations</Link>
+        </Menu.Item>
+        {/* <Menu.Item key="7" icon={<TeamOutlined />}>
           <Link to="/user/officers">Officers</Link>
-        </Menu.Item>
-        <Menu.Item key="7" icon={<IdcardOutlined />}>
+        </Menu.Item> */}
+        {/* <Menu.Item key="7" icon={<IdcardOutlined />}>
           <Link to="/user/divisions">Divisions</Link>
-        </Menu.Item>
+        </Menu.Item> */}
         {/* <Menu.Item key="8" icon={<AreaChartOutlined />}>
           <Link to="/user/production">Production</Link>
         </Menu.Item> */}

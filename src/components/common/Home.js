@@ -15,7 +15,10 @@ function Home() {
             <img className="d-block w-100" src={cr_01} alt="First slide" />
             <Carousel.Caption>
               <h3>Support and Guidance</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <p>
+                Now farmers can have instant support and guidance through
+                Agromate.
+              </p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={500}>
@@ -23,7 +26,10 @@ function Home() {
 
             <Carousel.Caption>
               <h3>Online Conversations</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>
+                Agromate allows for real-time conversations with your
+                instrutors.
+              </p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -31,36 +37,35 @@ function Home() {
 
             <Carousel.Caption>
               <h3>Crop and Fertilizer Recommendations</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
+              <p>Agromate provide recommendations based on your interest.</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       </div>
       <div className="container mt-3" id="posts">
-        <h5 className="mb-3">Recent Blog Posts</h5>
+        <h5 className="mb-3">Recent Blogs</h5>
         <div className="row">
           <div className="col-md-6">
             <div className="card border-primary flex-md-row mb-4 shadow-sm h-md-250">
               <div className="card-body d-flex flex-column align-items-start">
                 <strong className="d-inline-block mb-2 text-primary">
-                  World
+                  Paddy Cultivation
                 </strong>
                 <h6 className="mb-0">
                   <a className="text-dark" href="#">
-                    40 Percent of People Can’t Afford Basics
+                    Modern Technologies in Paddy Cultivation
                   </a>
                 </h6>
                 <div className="mb-1 text-muted small">Nov 12</div>
                 <p className="card-text mb-auto">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content.
+                  Travel anywhere in Sri Lanka, anytime of the year, and you
+                  will see beautiful sights of lush green paddy fields
+                  everywhere.
                 </p>
                 <a
                   className="btn btn-outline-primary btn-sm"
                   role="button"
-                  href="http://www.jquery2dotnet.com/"
+                  href="/"
                 >
                   Continue reading
                 </a>
@@ -68,7 +73,7 @@ function Home() {
               <img
                 className="card-img-right flex-auto d-none d-lg-block"
                 alt="Thumbnail [200x250]"
-                src="//placeimg.com/250/250/arch"
+                src="/paddy.jpeg"
               />
             </div>
           </div>
@@ -76,7 +81,34 @@ function Home() {
             <div className="card border-success flex-md-row mb-4 shadow-sm h-md-250">
               <div className="card-body d-flex flex-column align-items-start">
                 <strong className="d-inline-block mb-2 text-success">
-                  Health
+                  Home Grown Foods
+                </strong>
+                <h6 className="mb-0">
+                  <a className="text-dark" href="#">
+                    Fresh Vegetables: Diet and Brain Health
+                  </a>
+                </h6>
+                <div className="mb-1 text-muted small">Nov 11</div>
+                <p className="card-text mb-auto">
+                  Healthy, nutrient-rich soil improves the nutritional value in
+                  your fruits and veggies.
+                </p>
+                <a className="btn btn-outline-success btn-sm" href="/">
+                  Continue reading
+                </a>
+              </div>
+              <img
+                className="card-img-right flex-auto d-none d-lg-block"
+                alt="Thumbnail [200x250]"
+                src="/vegetables.jpeg"
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="card border-success flex-md-row mb-4 shadow-sm h-md-250">
+              <div className="card-body d-flex flex-column align-items-start">
+                <strong className="d-inline-block mb-2 text-success">
+                  How to use Pesticides
                 </strong>
                 <h6 className="mb-0">
                   <a className="text-dark" href="#">
@@ -85,50 +117,17 @@ function Home() {
                 </h6>
                 <div className="mb-1 text-muted small">Nov 11</div>
                 <p className="card-text mb-auto">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content.
+                  A new study adds to the growing evidence linking pesticides to
+                  harmful effects on organisms that are critically...
                 </p>
-                <a
-                  className="btn btn-outline-success btn-sm"
-                  href="http://www.jquery2dotnet.com/"
-                >
+                <a className="btn btn-outline-success btn-sm" href="/">
                   Continue reading
                 </a>
               </div>
               <img
                 className="card-img-right flex-auto d-none d-lg-block"
-                alt="Thumbnail [200x250]"
-                src="//placeimg.com/250/250/nature"
-              />
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="card border-success flex-md-row mb-4 shadow-sm h-md-250">
-              <div className="card-body d-flex flex-column align-items-start">
-                <strong className="d-inline-block mb-2 text-success">
-                  Health
-                </strong>
-                <h6 className="mb-0">
-                  <a className="text-dark" href="#">
-                    Food for Thought: Diet and Brain Health
-                  </a>
-                </h6>
-                <div className="mb-1 text-muted small">Nov 11</div>
-                <p className="card-text mb-auto">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content.
-                </p>
-                <a
-                  className="btn btn-outline-success btn-sm"
-                  href="http://www.jquery2dotnet.com/"
-                >
-                  Continue reading
-                </a>
-              </div>
-              <img
-                className="card-img-right flex-auto d-none d-lg-block"
-                alt="Thumbnail [200x250]"
-                src="//placeimg.com/250/250/nature"
+                alt="Pesticides"
+                src="/pesticides.jpeg"
               />
             </div>
           </div>
@@ -136,17 +135,17 @@ function Home() {
             <div className="card border-primary flex-md-row mb-4 shadow-sm h-md-250">
               <div className="card-body d-flex flex-column align-items-start">
                 <strong className="d-inline-block mb-2 text-primary">
-                  World
+                  Coconut Harvest
                 </strong>
                 <h6 className="mb-0">
                   <a className="text-dark" href="#">
-                    40 Percent of People Can’t Afford Basics
+                    Sri Lanka Coconut Cultivation
                   </a>
                 </h6>
                 <div className="mb-1 text-muted small">Nov 12</div>
                 <p className="card-text mb-auto">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content.
+                  Growing more than one crop at the same time and on the same
+                  land can be a great advantage and benefit for the farmers.
                 </p>
                 <a
                   className="btn btn-outline-primary btn-sm"
@@ -158,8 +157,8 @@ function Home() {
               </div>
               <img
                 className="card-img-right flex-auto d-none d-lg-block"
-                alt="Thumbnail [200x250]"
-                src="//placeimg.com/250/250/arch"
+                alt="Coconut"
+                src="/coconut.jpeg"
               />
             </div>
           </div>

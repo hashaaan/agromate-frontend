@@ -1,0 +1,19 @@
+.survey {
+  height: auto;
+  width: 35vw;
+  background-color: white;
+  margin: auto;
+  position: relative;
+  top: 3vh;
+  padding: 3vh;
+  border-color: #27ae60;
+  margin-bottom: 20px;
+}
+
+.survey .ant-list-item-meta-avatar {
+  margin-top: 8px;
+}
+
+.survey .submit-button {
+  margin-top: 16px;
+}

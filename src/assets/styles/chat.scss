@@ -13,10 +13,16 @@ img {
   border-right: 1px solid #c4c4c4;
 }
 .inbox_msg {
-  border: 1px solid #c4c4c4;
+  border: 1px solid #05728f;
   clear: both;
   overflow: hidden;
+  border-radius: 0.25rem;
 }
+
+#umsg .inbox_msg {
+  border: 1px solid #27ae60;
+}
+
 .top_spac {
   margin: 20px 0 0;
 }

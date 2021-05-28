@@ -1,0 +1,32 @@
+[
+  {
+    "crop_id": 100,
+    "name": "Eggplant",
+    "crop_category": "Vegetables",
+    "timestamp": 1619533809
+  },
+  {
+    "crop_id": 105,
+    "name": "Spiny gourd",
+    "crop_category": "Vegetables",
+    "timestamp": 1619533809
+  },
+  {
+    "crop_id": 107,
+    "name": "King coconut",
+    "crop_category": "Fruits",
+    "timestamp": 1619533672
+  },
+  {
+    "crop_id": 108,
+    "name": "Coconut",
+    "crop_category": "Fruits",
+    "timestamp": 1619533809
+  },
+  {
+    "crop_id": 110,
+    "name": "Bitter gourd",
+    "crop_category": "Vegetables",
+    "timestamp": 1619533809
+  }
+]
