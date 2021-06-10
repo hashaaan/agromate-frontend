@@ -10,7 +10,7 @@
     "url": "git+https://github.com/hashaaan/agromate-frontend"
   },
   "dependencies": {
-    "@ant-design/charts": "^1.1.2",
+    "@ant-design/charts": "^1.1.12",
     "@ant-design/icons": "^4.6.2",
     "@rematch/core": "^2.0.1",
     "@rematch/loading": "^2.0.1",
